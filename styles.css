@@ -404,3 +404,44 @@ body, html {
     border: none;
     object-fit: cover;
 }
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+   ========================================= */
+@media (max-width: 768px) {
+    /* Stack the project grid into a single column */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 8vh;
+        margin-top: 15vh; /* Ensure it clears the background title */
+    }
+
+    /* Keep the images reasonably sized on mobile */
+    .project-item img {
+        max-width: 80%;
+    }
+
+    /* Ensure background focuses on the top center to preserve the title */
+    #section-6 {
+        padding: 5vh 5vw;
+        background-position: top center;
+    }
+
+    /* Make the marquees slightly smaller */
+    .marquee-half img {
+        height: 10vh;
+    }
+
+    /* Adjust the close button for smaller thumbs and screens */
+    #close-case-study {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+    }
+
+    #close-case-study svg {
+        width: 20px;
+        height: 20px;
+    }
+}
