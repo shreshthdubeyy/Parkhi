@@ -123,11 +123,12 @@
     </div>
 
     <script>
-        // Force page to scroll to 80px on reload to trigger initial states if needed
-        if ('scrollRestoration' in history) {
+        // Force page to scroll to 75px on reload to trigger initial states if needed (Desktop only)
+        if (window.innerWidth > 768 && 'scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        
+
+        // Handle initial loader fade out
         window.addEventListener('load', () => {
             const loaderWrapper = document.getElementById('loader-wrapper');
             if (loaderWrapper) {
@@ -137,9 +138,12 @@
                 // Wait for the transition to finish before removing from DOM flow
                 setTimeout(() => {
                     loaderWrapper.style.display = 'none';
-                    window.scrollTo(0, 75); // Start pre-scrolled at 75px as requested
+                    // Auto-scroll on desktop screens only
+                    if (window.innerWidth > 768) {
+                        window.scrollTo(0, 75); 
+                    }
                 }, 500); // 0.5s matches the CSS transition duration
-            } else {
+            } else if (window.innerWidth > 768) {
                 window.scrollTo(0, 75);
             }
         });

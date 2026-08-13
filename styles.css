@@ -409,23 +409,31 @@ body, html {
    MOBILE RESPONSIVENESS
    ========================================= */
 @media (max-width: 768px) {
-    /* Keep a 2x2 grid on mobile so the section doesn't become awkwardly tall and stretch the background */
+    /* Scale the grid proportionally so it fits inside the aspect ratio */
     .projects-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 3vw;
-        margin-top: 10vh; /* Ensure it clears the background title */
+        gap: 2%;
+        width: 80%;
+        margin-top: 15%; /* Push down slightly further to ensure clearance of title */
     }
 
-    /* Allow the images to use most of their column width */
     .project-item img {
-        max-width: 95%;
+        width: 100%;
+        max-width: 85%; /* Make buttons smaller */
+        height: auto; /* Lock aspect ratio natively */
+        object-fit: contain;
     }
 
-    /* Remove massive padding/height to keep it compact */
+    /* Force the section to behave like an image maintaining its aspect ratio */
     #section-6 {
-        padding: 6vh 2vw 10vh 2vw;
-        background-position: top center;
+        padding: 0;
+        background-position: center;
+        background-size: cover; /* Will fit perfectly because aspect ratio matches */
+        aspect-ratio: 16 / 9;
         min-height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Make the marquees much thinner on phones */
