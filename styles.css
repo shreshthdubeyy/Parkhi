@@ -409,27 +409,28 @@ body, html {
    MOBILE RESPONSIVENESS
    ========================================= */
 @media (max-width: 768px) {
-    /* Stack the project grid into a single column */
+    /* Keep a 2x2 grid on mobile so the section doesn't become awkwardly tall and stretch the background */
     .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 8vh;
-        margin-top: 15vh; /* Ensure it clears the background title */
+        grid-template-columns: 1fr 1fr;
+        gap: 3vw;
+        margin-top: 10vh; /* Ensure it clears the background title */
     }
 
-    /* Keep the images reasonably sized on mobile */
+    /* Allow the images to use most of their column width */
     .project-item img {
-        max-width: 80%;
+        max-width: 95%;
     }
 
-    /* Ensure background focuses on the top center to preserve the title */
+    /* Remove massive padding/height to keep it compact */
     #section-6 {
-        padding: 5vh 5vw;
+        padding: 6vh 2vw 10vh 2vw;
         background-position: top center;
+        min-height: auto;
     }
 
-    /* Make the marquees slightly smaller */
+    /* Make the marquees much thinner on phones */
     .marquee-half img {
-        height: 10vh;
+        height: 35px;
     }
 
     /* Adjust the close button for smaller thumbs and screens */
