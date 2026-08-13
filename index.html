@@ -111,7 +111,13 @@
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
-        <div id="case-study-content">
+        <!-- Reusing the beautiful triangle loader you already have -->
+        <div id="case-study-spinner" class="loader triangle" style="position: absolute; top: 50%; left: 50%; margin: 0; transform: translate(-50%, -50%); display: none;">
+            <svg viewBox="0 0 86 80">
+                <polygon points="43 8 79 72 7 72"></polygon>
+            </svg>
+        </div>
+        <div id="case-study-content" style="opacity: 0; transition: opacity 0.5s ease;">
             <!-- Images will be injected here dynamically -->
         </div>
     </div>
@@ -188,6 +194,7 @@
             };
 
             const projectItems = document.querySelectorAll('.project-item.clickable');
+            const spinner = document.getElementById('case-study-spinner');
             
             projectItems.forEach(item => {
                 item.addEventListener('click', () => {
@@ -195,11 +202,28 @@
                     const assets = projects[projectId];
                     
                     if (assets) {
-                        // Clear previous content
+                        // Clear previous content and reset opacity
                         caseStudyContent.innerHTML = '';
+                        caseStudyContent.style.opacity = '0';
+                        spinner.style.display = 'block';
+                        
+                        // Show overlay immediately so the spinner is visible
+                        caseStudyOverlay.classList.remove('hidden');
+                        caseStudyOverlay.classList.add('visible');
+                        document.body.style.overflow = 'hidden'; // Prevent body scrolling
+                        caseStudyOverlay.scrollTo(0,0);
+                        
+                        let firstMediaLoaded = false;
+                        const onMediaLoad = () => {
+                            if (!firstMediaLoaded) {
+                                firstMediaLoaded = true;
+                                spinner.style.display = 'none';
+                                caseStudyContent.style.opacity = '1';
+                            }
+                        };
                         
                         // Inject new assets
-                        assets.forEach(assetPath => {
+                        assets.forEach((assetPath, index) => {
                             if (assetPath.toLowerCase().endsWith('.mp4')) {
                                 const video = document.createElement('video');
                                 video.src = assetPath;
@@ -207,25 +231,20 @@
                                 video.loop = true;
                                 video.muted = true;
                                 video.playsInline = true;
+                                if (index === 0) video.onloadeddata = onMediaLoad;
                                 caseStudyContent.appendChild(video);
                             } else {
                                 const img = document.createElement('img');
                                 img.src = assetPath;
                                 img.alt = "Case Study Image";
-                                img.loading = "lazy"; // Better performance for huge images
+                                // Removed loading="lazy" so all images preload in the background
+                                if (index === 0) img.onload = onMediaLoad;
                                 caseStudyContent.appendChild(img);
                             }
                         });
                         
-                        // Show overlay
-                        caseStudyOverlay.classList.remove('hidden');
-                        caseStudyOverlay.classList.add('visible');
-                        
-                        // Prevent body scrolling underneath
-                        document.body.style.overflow = 'hidden';
-                        
-                        // Scroll case study overlay to top
-                        caseStudyOverlay.scrollTo(0,0);
+                        // Fallback just in case the first media takes too long or fails
+                        setTimeout(onMediaLoad, 3000);
                     }
                 });
             });
@@ -237,6 +256,8 @@
                 setTimeout(() => {
                     caseStudyOverlay.classList.add('hidden');
                     caseStudyContent.innerHTML = ''; // free memory
+                    caseStudyContent.style.opacity = '0';
+                    spinner.style.display = 'none';
                     document.body.style.overflow = ''; // restore body scroll
                 }, 500); // matches CSS transition duration
             });
