@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- LOADER -->
+    <div id="loader-wrapper">
+        <div class="loader-container">
+            <div class="loader">
+              <svg viewBox="0 0 80 80">
+                <circle r="32" cy="40" cx="40" id="test"></circle>
+              </svg>
+            </div>
+            <div class="loader triangle">
+              <svg viewBox="0 0 86 80">
+                <polygon points="43 8 79 72 7 72"></polygon>
+              </svg>
+            </div>
+            <div class="loader">
+              <svg viewBox="0 0 80 80">
+                <rect height="64" width="64" y="8" x="8"></rect>
+              </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. Hero.MP4 -->
+    <section class="portfolio-content">
+        <video src="Hero.MP4" autoplay loop muted playsinline></video>
+    </section>
+
+    <!-- 2. 2.JPG.jpeg (Separator) -->
+    <section class="separator marquee">
+        <div class="marquee-track" id="track-1">
+            <div class="marquee-half">
+                <img src="2.JPG.jpeg" alt="Separator 1">
+                <img src="2.JPG.jpeg" alt="Separator 1">
+                <img src="2.JPG.jpeg" alt="Separator 1">
+                <img src="2.JPG.jpeg" alt="Separator 1">
+            </div>
+            <div class="marquee-half">
+                <img src="2.JPG.jpeg" alt="Separator 1">
+                <img src="2.JPG.jpeg" alt="Separator 1">
+                <img src="2.JPG.jpeg" alt="Separator 1">
+                <img src="2.JPG.jpeg" alt="Separator 1">
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 3.MP4 -->
+    <section class="portfolio-content">
+        <video class="scroll-video" src="3.MP4" muted playsinline preload="metadata"></video>
+    </section>
+
+    <!-- 4. 4.JPG.jpeg (Separator) -->
+    <section class="separator marquee">
+        <div class="marquee-track" id="track-2">
+            <div class="marquee-half">
+                <img src="4.JPG.jpeg" alt="Separator 2">
+                <img src="4.JPG.jpeg" alt="Separator 2">
+                <img src="4.JPG.jpeg" alt="Separator 2">
+                <img src="4.JPG.jpeg" alt="Separator 2">
+            </div>
+            <div class="marquee-half">
+                <img src="4.JPG.jpeg" alt="Separator 2">
+                <img src="4.JPG.jpeg" alt="Separator 2">
+                <img src="4.JPG.jpeg" alt="Separator 2">
+                <img src="4.JPG.jpeg" alt="Separator 2">
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 5.MP4 -->
+    <section class="portfolio-content">
+        <video class="scroll-video" src="5.MP4" muted playsinline preload="metadata"></video>
+    </section>
+
+    <!-- 6. Projects Section -->
+    <section id="section-6" class="portfolio-section">
+        <div class="projects-grid">
+            <!-- Not clickable yet (No assets) -->
+            <div class="project-item" data-project="real-estate">
+                <img src="6.1.png" alt="01 Real Estate">
+            </div>
+            <!-- Clickable projects -->
+            <div class="project-item clickable" data-project="wellness-brand">
+                <img src="6.2.png" alt="02 Wellness Brand">
+            </div>
+            <div class="project-item clickable" data-project="cafe-branding">
+                <img src="6.3.png" alt="03 Cafe Branding">
+            </div>
+            <!-- Not clickable yet (No assets) -->
+            <div class="project-item" data-project="brand-revamp">
+                <img src="6.4.png" alt="04 Brand Revamp">
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Study SPA Overlay -->
+    <div id="case-study-overlay" class="hidden">
+        <button id="close-case-study" aria-label="Close Case Study">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div id="case-study-content">
+            <!-- Images will be injected here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Force page to scroll to 80px on reload to trigger initial states if needed
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        
+        window.addEventListener('load', () => {
+            const loaderWrapper = document.getElementById('loader-wrapper');
+            if (loaderWrapper) {
+                // Add hidden class to trigger CSS fade-out transition
+                loaderWrapper.classList.add('hidden');
+                
+                // Wait for the transition to finish before removing from DOM flow
+                setTimeout(() => {
+                    loaderWrapper.style.display = 'none';
+                    window.scrollTo(0, 75); // Start pre-scrolled at 75px as requested
+                }, 500); // 0.5s matches the CSS transition duration
+            } else {
+                window.scrollTo(0, 75);
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollVideos = document.querySelectorAll('.scroll-video');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target;
+                    
+                    // When the video comes into view
+                    if (entry.isIntersecting) {
+                        video.play().catch(err => console.log("Video play failed:", err));
+                    } else {
+                        // Pause the video when out of view so it doesn't play in the background
+                        video.pause();
+                    }
+                });
+            }, {
+                threshold: 0.25 // Trigger when 25% of the video is visible
+            });
+            
+            scrollVideos.forEach(video => {
+                observer.observe(video);
+            });
+
+            // SPA Logic for Section 6 Case Studies
+            const caseStudyOverlay = document.getElementById('case-study-overlay');
+            const caseStudyContent = document.getElementById('case-study-content');
+            const closeBtn = document.getElementById('close-case-study');
+            
+            // Define project assets based on actual directory contents
+            const projects = {
+                'wellness-brand': [
+                    'Wellness brand/1.jpg',
+                    'Wellness brand/2.jpg',
+                    'Wellness brand/3.jpeg',
+                    'Wellness brand/4.jpg',
+                    'Wellness brand/5.jpg'
+                ],
+                'cafe-branding': [
+                    'Cafe branding/1.jpg',
+                    'Cafe branding/2.jpg',
+                    'Cafe branding/3.mp4',
+                    'Cafe branding/4.jpg',
+                    'Cafe branding/5.jpg',
+                    'Cafe branding/6.jpg',
+                    'Cafe branding/7.jpg',
+                    'Cafe branding/8.jpg'
+                ]
+            };
+
+            const projectItems = document.querySelectorAll('.project-item.clickable');
+            
+            projectItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const projectId = item.getAttribute('data-project');
+                    const assets = projects[projectId];
+                    
+                    if (assets) {
+                        // Clear previous content
+                        caseStudyContent.innerHTML = '';
+                        
+                        // Inject new assets
+                        assets.forEach(assetPath => {
+                            if (assetPath.toLowerCase().endsWith('.mp4')) {
+                                const video = document.createElement('video');
+                                video.src = assetPath;
+                                video.autoplay = true;
+                                video.loop = true;
+                                video.muted = true;
+                                video.playsInline = true;
+                                caseStudyContent.appendChild(video);
+                            } else {
+                                const img = document.createElement('img');
+                                img.src = assetPath;
+                                img.alt = "Case Study Image";
+                                img.loading = "lazy"; // Better performance for huge images
+                                caseStudyContent.appendChild(img);
+                            }
+                        });
+                        
+                        // Show overlay
+                        caseStudyOverlay.classList.remove('hidden');
+                        caseStudyOverlay.classList.add('visible');
+                        
+                        // Prevent body scrolling underneath
+                        document.body.style.overflow = 'hidden';
+                        
+                        // Scroll case study overlay to top
+                        caseStudyOverlay.scrollTo(0,0);
+                    }
+                });
+            });
+            
+            // Close logic
+            closeBtn.addEventListener('click', () => {
+                caseStudyOverlay.classList.remove('visible');
+                // Wait for CSS transition to finish before hiding and clearing
+                setTimeout(() => {
+                    caseStudyOverlay.classList.add('hidden');
+                    caseStudyContent.innerHTML = ''; // free memory
+                    document.body.style.overflow = ''; // restore body scroll
+                }, 500); // matches CSS transition duration
+            });
+        });
+    </script>
+</body>
+</html>

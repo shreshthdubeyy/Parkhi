@@ -1,0 +1,406 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden; /* Prevent horizontal scrollbars */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+
+/* 
+   PORTFOLIO CONTENT (Videos: Hero, 3.MP4, 5.MP4)
+   Centered, intrinsic/original width
+*/
+.portfolio-content {
+    margin: 0;
+}
+
+.portfolio-content video {
+    display: block;
+    margin: 0 auto; /* Horizontally center */
+    max-width: 100%; /* Responsive safety limit */
+    height: auto;
+    /* Letting the video determine its own width based on its original aspect ratio */
+}
+
+/* 
+   SEPARATORS (2.JPG, 4.JPG)
+   Full bleed across the viewport
+*/
+.separator {
+    width: 100vw;
+    position: relative;
+}
+
+/* 
+   MARQUEE
+   Infinite scroll functionality
+*/
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background-color: #000;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: scroll-marquee 40s linear infinite;
+}
+
+.marquee-half {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0; /* explicitly remove flex gaps */
+}
+
+.marquee-half img {
+    height: 15vh; /* Reduced height to make the separator strip thinner */
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Seamless Infinite Scroll Animation from RIGHT to LEFT */
+@keyframes scroll-marquee {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+/* =========================================
+   LOADER STYLES 
+   ========================================= */
+
+/* Loader Wrapper to overlay on top of portfolio */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000; /* Matches body background */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+#loader-wrapper.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* From Uiverse.io by mobinkakei */ 
+.loader {
+  --path: #2f3545;
+  --dot: #5628ee;
+  --duration: 3s;
+  width: 44px;
+  height: 44px;
+  position: relative;
+}
+
+.loader:before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  position: absolute;
+  display: block;
+  background: var(--dot);
+  top: 37px;
+  left: 19px;
+  transform: translate(-18px, -18px);
+  animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+.loader svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.loader svg rect,
+.loader svg polygon,
+.loader svg circle {
+  fill: none;
+  stroke: var(--path);
+  stroke-width: 10px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.loader svg polygon {
+  stroke-dasharray: 145 76 145 76;
+  stroke-dashoffset: 0;
+  animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+.loader svg rect {
+  stroke-dasharray: 192 64 192 64;
+  stroke-dashoffset: 0;
+  animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg circle {
+  stroke-dasharray: 150 50 150 50;
+  stroke-dashoffset: 75;
+  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+.loader.triangle {
+  width: 48px;
+}
+
+.loader.triangle:before {
+  left: 21px;
+  transform: translate(-10px, -18px);
+  animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+@keyframes pathTriangle {
+  33% {
+    stroke-dashoffset: 74;
+  }
+
+  66% {
+    stroke-dashoffset: 147;
+  }
+
+  100% {
+    stroke-dashoffset: 221;
+  }
+}
+
+@keyframes dotTriangle {
+  33% {
+    transform: translate(0, 0);
+  }
+
+  66% {
+    transform: translate(10px, -18px);
+  }
+
+  100% {
+    transform: translate(-10px, -18px);
+  }
+}
+
+@keyframes pathRect {
+  25% {
+    stroke-dashoffset: 64;
+  }
+
+  50% {
+    stroke-dashoffset: 128;
+  }
+
+  75% {
+    stroke-dashoffset: 192;
+  }
+
+  100% {
+    stroke-dashoffset: 256;
+  }
+}
+
+@keyframes dotRect {
+  25% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(18px, -18px);
+  }
+
+  75% {
+    transform: translate(0, -36px);
+  }
+
+  100% {
+    transform: translate(-18px, -18px);
+  }
+}
+
+@keyframes pathCircle {
+  25% {
+    stroke-dashoffset: 125;
+  }
+
+  50% {
+    stroke-dashoffset: 175;
+  }
+
+  75% {
+    stroke-dashoffset: 225;
+  }
+
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+
+.loader {
+  display: inline-block;
+  margin: 0 16px;
+}
+
+/* =========================================
+   SECTION 6 - PROJECTS (2x2 GRID)
+   ========================================= */
+
+#section-6 {
+    padding: 8vh 4vw;
+    background-color: #000;
+    background-image: url('6.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4vw;
+    max-width: 1400px;
+    width: 100%;
+    margin-top: 10vh; /* Pushes the grid down away from the heading */
+}
+
+.project-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.project-item:hover {
+    z-index: 10;
+}
+
+.project-item img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0px 10px 30px rgba(0,0,0,0.4));
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease;
+}
+
+.project-item:hover img {
+    transform: translateY(-2px) scale(1.015);
+    filter: drop-shadow(0px 15px 35px rgba(0,0,0,0.6));
+}
+
+/* =========================================
+   CASE STUDY SPA OVERLAY (CONTINUOUS CANVAS)
+   ========================================= */
+
+#case-study-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 99999;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Smooth fade in transition */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#case-study-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Close Button */
+#close-case-study {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 100000;
+    transition: all 0.3s ease;
+}
+
+#close-case-study:hover {
+    background-color: rgba(255,255,255,0.2);
+    transform: scale(1.1);
+}
+
+#close-case-study svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Stitched Canvas (Zero gaps, margins, or padding) */
+#case-study-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* Eliminate inline whitespace */
+    font-size: 0;
+    line-height: 0;
+}
+
+#case-study-content img,
+#case-study-content video {
+    display: block;
+    width: 100%;
+    max-width: 100vw;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    object-fit: cover;
+}
