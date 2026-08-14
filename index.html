@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
     <!-- Custom Cursor -->
@@ -218,51 +218,55 @@
             progressBar.style.width = `${e.progress * 100}%`;
         });
 
-        // Top Horizontal Scroll Sequence for Hero and 3.mp4
-        const topHorizontalContainer = document.getElementById('top-horizontal-container');
-        let topAnim = gsap.to(topHorizontalContainer, {
-            x: () => -(topHorizontalContainer.scrollWidth - window.innerWidth) + "px",
-            duration: 1.2,
-            ease: "power4.inOut",
-            paused: true
-        });
+        // Only apply horizontal GSAP sequences on Desktop
+        let mm = gsap.matchMedia();
+        mm.add("(min-width: 769px)", () => {
+            // Top Horizontal Scroll Sequence for Hero and 3.mp4
+            const topHorizontalContainer = document.getElementById('top-horizontal-container');
+            let topAnim = gsap.to(topHorizontalContainer, {
+                x: () => -(topHorizontalContainer.scrollWidth - window.innerWidth) + "px",
+                duration: 1.2,
+                ease: "power4.inOut",
+                paused: true
+            });
 
-        ScrollTrigger.create({
-            trigger: "#top-horizontal-wrapper",
-            pin: true,
-            start: "top top",
-            end: "+=200", // Short pin
-            onUpdate: (self) => {
-                // Only trigger if user actually scrolled down a bit
-                if (self.progress > 0.05) {
-                    topAnim.play();
-                } else if (self.progress < 0.05) {
-                    topAnim.reverse();
+            ScrollTrigger.create({
+                trigger: "#top-horizontal-wrapper",
+                pin: true,
+                start: "top top",
+                end: "+=200", // Short pin
+                onUpdate: (self) => {
+                    // Only trigger if user actually scrolled down a bit
+                    if (self.progress > 0.05) {
+                        topAnim.play();
+                    } else if (self.progress < 0.05) {
+                        topAnim.reverse();
+                    }
                 }
-            }
-        });
+            });
 
-        // Bottom Horizontal Scroll Sequence for Section 6 and 7
-        const horizontalContainer = document.getElementById('horizontal-container');
-        let bottomAnim = gsap.to(horizontalContainer, {
-            x: () => -(horizontalContainer.scrollWidth - window.innerWidth) + "px",
-            duration: 1.2,
-            ease: "power4.inOut",
-            paused: true
-        });
+            // Bottom Horizontal Scroll Sequence for Section 6 and 7
+            const horizontalContainer = document.getElementById('horizontal-container');
+            let bottomAnim = gsap.to(horizontalContainer, {
+                x: () => -(horizontalContainer.scrollWidth - window.innerWidth) + "px",
+                duration: 1.2,
+                ease: "power4.inOut",
+                paused: true
+            });
 
-        ScrollTrigger.create({
-            trigger: "#horizontal-wrapper",
-            pin: true,
-            start: "top top",
-            end: "+=50", // Extremely small pin spacer to prevent a huge black scroll area at the end of the page
-            onUpdate: (self) => {
-                if (self.progress > 0.05) {
-                    bottomAnim.play();
-                } else if (self.progress < 0.05) {
-                    bottomAnim.reverse();
+            ScrollTrigger.create({
+                trigger: "#horizontal-wrapper",
+                pin: true,
+                start: "top top",
+                end: "+=50", // Extremely small pin spacer
+                onUpdate: (self) => {
+                    if (self.progress > 0.05) {
+                        bottomAnim.play();
+                    } else if (self.progress < 0.05) {
+                        bottomAnim.reverse();
+                    }
                 }
-            }
+            });
         });
 
         // Custom Cursor Logic

@@ -534,6 +534,41 @@ body.custom-cursor-active * {
    MOBILE RESPONSIVENESS
    ========================================= */
 @media (max-width: 768px) {
+    /* Reset horizontal wrappers to standard vertical flow on mobile */
+    #top-horizontal-wrapper,
+    #horizontal-wrapper {
+        width: 100vw !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    #top-horizontal-container,
+    #horizontal-container {
+        width: 100vw !important;
+        height: auto !important;
+        flex-direction: column !important;
+        transform: none !important; /* Override any GSAP inline transforms */
+    }
+
+    #top-horizontal-container > div,
+    #top-horizontal-container > section,
+    #horizontal-container > section {
+        width: 100vw !important;
+        height: auto !important;
+        flex-shrink: 0;
+    }
+
+    /* Ensure all videos display at their exact native aspect ratio without cropping */
+    .portfolio-content,
+    #final-section {
+        height: auto !important;
+    }
+
+    .scroll-video {
+        height: auto !important;
+        object-fit: contain !important;
+    }
+
     /* Scale the grid proportionally so it fits inside the aspect ratio */
     .projects-grid {
         grid-template-columns: 1fr 1fr;
@@ -562,13 +597,15 @@ body.custom-cursor-active * {
     }
 
 
-    /* Force the section to behave like an image maintaining its aspect ratio */
+    /* Force the section to behave like an image maintaining its exact aspect ratio without black bars */
     #section-6 {
-        padding: 0;
-        background-position: center;
-        background-size: cover; /* Will fit perfectly because aspect ratio matches */
-        aspect-ratio: 16 / 9;
-        min-height: auto;
+        padding: 0 !important;
+        background-position: center !important;
+        background-size: cover !important; 
+        background-repeat: no-repeat !important;
+        aspect-ratio: 16 / 9 !important;
+        min-height: 0 !important;
+        height: auto !important;
         display: flex;
         align-items: center;
         justify-content: center;
