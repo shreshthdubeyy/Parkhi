@@ -406,6 +406,131 @@ body, html {
 }
 
 /* =========================================
+   SLIDE-IN FINAL SECTION
+   ========================================= */
+#final-section-pin {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-color: #000;
+}
+
+.slide-in-section {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+    margin: 0;
+    padding: 0;
+}
+
+.slide-in-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video fills the screen */
+}
+
+/* =========================================
+   BOTTOM RIGHT CTAs
+   ========================================= */
+.bottom-right-ctas {
+    position: absolute;
+    bottom: 40px;
+    right: 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 10;
+}
+
+.cta-link {
+    display: block;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cta-link:hover {
+    transform: scale(1.1);
+}
+
+.cta-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #df4425; /* Accent red */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* =========================================
+   SCROLL PROGRESS BAR
+   ========================================= */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: #df4425;
+    width: 0%;
+    z-index: 999999;
+    pointer-events: none;
+}
+
+/* =========================================
+   CUSTOM CURSOR
+   ========================================= */
+body.custom-cursor-active * {
+    cursor: none !important;
+}
+
+#cursor-dot,
+#cursor-circle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999999;
+    transform: translate3d(-100px, -100px, 0);
+}
+
+#cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #df4425;
+    border-radius: 50%;
+    margin: -4px 0 0 -4px;
+}
+
+#cursor-circle {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(223, 68, 37, 0.5);
+    border-radius: 50%;
+    margin: -20px 0 0 -20px;
+    transition: width 0.3s, height 0.3s, margin 0.3s, background-color 0.3s;
+}
+
+/* Hover state for interactive elements */
+#cursor-circle.cursor-hover {
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    background-color: rgba(223, 68, 37, 0.1);
+    border-color: rgba(223, 68, 37, 0.8);
+}
+
+/* =========================================
    MOBILE RESPONSIVENESS
    ========================================= */
 @media (max-width: 768px) {
@@ -423,6 +548,19 @@ body, html {
         height: auto; /* Lock aspect ratio natively */
         object-fit: contain;
     }
+
+    /* Bottom Right CTAs */
+    .bottom-right-ctas {
+        position: absolute;
+        bottom: 40px;
+        right: 4vw;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 10;
+        align-items: flex-end; /* Align right to keep the visual weight anchored */
+    }
+
 
     /* Force the section to behave like an image maintaining its aspect ratio */
     #section-6 {
@@ -453,4 +591,51 @@ body, html {
         width: 20px;
         height: 20px;
     }
+}
+
+/* =========================================
+   LENIS SMOOTH SCROLL BASE STYLES
+   ========================================= */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* =========================================
+   COPYRIGHT STRIP
+   ========================================= */
+.copyright-strip {
+    width: 100vw;
+    padding: 2vh 0;
+    background-color: #000;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    position: relative;
+}
+
+.copyright-strip p {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0;
 }

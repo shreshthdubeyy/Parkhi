@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Smooth Scroll & Animations -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-circle"></div>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+
     <!-- LOADER -->
     <div id="loader-wrapper">
         <div class="loader-container">
@@ -31,33 +40,45 @@
         </div>
     </div>
 
-    <!-- 1. Hero.mp4 -->
-    <section class="portfolio-content">
-        <video src="Hero.mp4" autoplay loop muted playsinline></video>
-    </section>
+    <!-- TOP HORIZONTAL SCROLL WRAPPER -->
+    <div id="top-horizontal-wrapper" style="overflow: hidden; width: 100vw; background: #000;">
+        <div id="top-horizontal-container" style="display: flex; width: 200vw; will-change: transform; align-items: flex-start;">
+            
+            <!-- 1. Hero.mp4 (Left Side) -->
+            <section class="portfolio-content" style="width: 100vw; height: 100vh; flex-shrink: 0; position: relative;">
+                <video class="scroll-video" src="Hero.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+            </section>
 
-    <!-- 2. 2.JPG.jpeg (Separator) -->
-    <section class="separator marquee">
-        <div class="marquee-track" id="track-1">
-            <div class="marquee-half">
-                <img src="2.JPG.jpeg" alt="Separator 1">
-                <img src="2.JPG.jpeg" alt="Separator 1">
-                <img src="2.JPG.jpeg" alt="Separator 1">
-                <img src="2.JPG.jpeg" alt="Separator 1">
+            <!-- Right Side Column (About Me + 3.mp4) -->
+            <div style="width: 100vw; flex-shrink: 0; display: flex; flex-direction: column;">
+                
+                <!-- 2. 2.JPG.jpeg (About Me Separator) -->
+                <section class="separator marquee">
+                    <div class="marquee-track" id="track-1">
+                        <div class="marquee-half">
+                            <img src="2.JPG.jpeg" alt="About Me 1">
+                            <img src="2.JPG.jpeg" alt="About Me 1">
+                            <img src="2.JPG.jpeg" alt="About Me 1">
+                            <img src="2.JPG.jpeg" alt="About Me 1">
+                        </div>
+                        <div class="marquee-half">
+                            <img src="2.JPG.jpeg" alt="About Me 1">
+                            <img src="2.JPG.jpeg" alt="About Me 1">
+                            <img src="2.JPG.jpeg" alt="About Me 1">
+                            <img src="2.JPG.jpeg" alt="About Me 1">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. 3.mp4 -->
+                <section class="portfolio-content" style="position: relative;">
+                    <video class="scroll-video" src="3.mp4" muted playsinline preload="metadata" style="width: 100%; height: auto; display: block;"></video>
+                </section>
+                
             </div>
-            <div class="marquee-half">
-                <img src="2.JPG.jpeg" alt="Separator 1">
-                <img src="2.JPG.jpeg" alt="Separator 1">
-                <img src="2.JPG.jpeg" alt="Separator 1">
-                <img src="2.JPG.jpeg" alt="Separator 1">
-            </div>
+
         </div>
-    </section>
-
-    <!-- 3. 3.mp4 -->
-    <section class="portfolio-content">
-        <video class="scroll-video" src="3.mp4" muted playsinline preload="metadata"></video>
-    </section>
+    </div>
 
     <!-- 4. 4.JPG.jpeg (Separator) -->
     <section class="separator marquee">
@@ -82,29 +103,78 @@
         <video class="scroll-video" src="5.MP4" muted playsinline preload="metadata"></video>
     </section>
 
-    <!-- 6. Projects Section -->
-    <section id="section-6" class="portfolio-section">
-        <div class="projects-grid">
-            <!-- Not clickable yet (No assets) -->
-            <div class="project-item" data-project="real-estate">
-                <img src="6.1.png" alt="01 Real Estate">
+    <!-- 6.0.jpeg (Separator) -->
+    <section class="separator marquee">
+        <div class="marquee-track" id="track-3">
+            <div class="marquee-half">
+                <img src="6.0.jpeg" alt="Separator 3">
+                <img src="6.0.jpeg" alt="Separator 3">
+                <img src="6.0.jpeg" alt="Separator 3">
+                <img src="6.0.jpeg" alt="Separator 3">
             </div>
-            <!-- Clickable projects -->
-            <div class="project-item clickable" data-project="wellness-brand">
-                <img src="6.2.png" alt="02 Wellness Brand">
-            </div>
-            <div class="project-item clickable" data-project="cafe-branding">
-                <img src="6.3.png" alt="03 Cafe Branding">
-            </div>
-            <!-- Not clickable yet (No assets) -->
-            <div class="project-item" data-project="brand-revamp">
-                <img src="6.4.png" alt="04 Brand Revamp">
+            <div class="marquee-half">
+                <img src="6.0.jpeg" alt="Separator 3">
+                <img src="6.0.jpeg" alt="Separator 3">
+                <img src="6.0.jpeg" alt="Separator 3">
+                <img src="6.0.jpeg" alt="Separator 3">
             </div>
         </div>
     </section>
 
+    <!-- HORIZONTAL SCROLL WRAPPER -->
+    <div id="horizontal-wrapper" style="overflow: hidden; width: 100vw; height: 100vh; background: #000;">
+        <div id="horizontal-container" style="display: flex; width: 200vw; height: 100vh; will-change: transform;">
+            
+            <!-- 6. Projects Section -->
+            <section id="section-6" class="portfolio-section" style="width: 100vw; height: 100vh; flex-shrink: 0; position: relative;">
+                <div class="projects-grid">
+                    <!-- Clickable projects -->
+                    <div class="project-item clickable" data-project="real-estate">
+                        <img src="6.1.png" alt="01 Real Estate">
+                    </div>
+                    <!-- Clickable projects -->
+                    <div class="project-item clickable" data-project="wellness-brand">
+                        <img src="6.2.png" alt="02 Wellness Brand">
+                    </div>
+                    <div class="project-item clickable" data-project="cafe-branding">
+                        <img src="6.3.png" alt="03 Cafe Branding">
+                    </div>
+                    <!-- Clickable projects -->
+                    <div class="project-item clickable" data-project="brand-revamp">
+                        <img src="6.4.png" alt="04 Brand Revamp">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Final Section -->
+            <section class="portfolio-content" id="final-section" style="width: 100vw; flex-shrink: 0; position: relative; height: 100vh; box-sizing: border-box; border-bottom: 2px solid rgba(255, 255, 255, 0.1);">
+                <video class="scroll-video" src="7.mp4" muted playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: cover;"></video>
+                
+                <!-- Bottom Right CTAs -->
+                <div class="bottom-right-ctas">
+                    <a href="tel:+64226159728" class="cta-link clickable" aria-label="Call">
+                        <div class="cta-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 1.01-.63 1.01-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                        </div>
+                    </a>
+                    <a href="mailto:parkhigulati@gmail.com" class="cta-link clickable" aria-label="Email">
+                        <div class="cta-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Copyright Strip -->
+    <footer class="copyright-strip">
+        <p>&copy; 2026 Parkhi Gulati. All Rights Reserved.</p>
+    </footer>
+
     <!-- Case Study SPA Overlay -->
-    <div id="case-study-overlay" class="hidden">
+    <div id="case-study-overlay" class="hidden" data-lenis-prevent>
         <button id="close-case-study" aria-label="Close Case Study">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -123,8 +193,122 @@
     </div>
 
     <script>
-        // Force page to scroll to 75px on reload to trigger initial states if needed (Desktop only)
-        if (window.innerWidth > 768 && 'scrollRestoration' in history) {
+        // GSAP & ScrollTrigger Setup
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+        });
+
+        // Sync Lenis and ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // Scroll Progress Bar
+        const progressBar = document.getElementById('scroll-progress');
+        lenis.on('scroll', (e) => {
+            progressBar.style.width = `${e.progress * 100}%`;
+        });
+
+        // Top Horizontal Scroll Sequence for Hero and 3.mp4
+        const topHorizontalContainer = document.getElementById('top-horizontal-container');
+        let topAnim = gsap.to(topHorizontalContainer, {
+            x: () => -(topHorizontalContainer.scrollWidth - window.innerWidth) + "px",
+            duration: 1.2,
+            ease: "power4.inOut",
+            paused: true
+        });
+
+        ScrollTrigger.create({
+            trigger: "#top-horizontal-wrapper",
+            pin: true,
+            start: "top top",
+            end: "+=200", // Short pin
+            onUpdate: (self) => {
+                // Only trigger if user actually scrolled down a bit
+                if (self.progress > 0.05) {
+                    topAnim.play();
+                } else if (self.progress < 0.05) {
+                    topAnim.reverse();
+                }
+            }
+        });
+
+        // Bottom Horizontal Scroll Sequence for Section 6 and 7
+        const horizontalContainer = document.getElementById('horizontal-container');
+        let bottomAnim = gsap.to(horizontalContainer, {
+            x: () => -(horizontalContainer.scrollWidth - window.innerWidth) + "px",
+            duration: 1.2,
+            ease: "power4.inOut",
+            paused: true
+        });
+
+        ScrollTrigger.create({
+            trigger: "#horizontal-wrapper",
+            pin: true,
+            start: "top top",
+            end: "+=50", // Extremely small pin spacer to prevent a huge black scroll area at the end of the page
+            onUpdate: (self) => {
+                if (self.progress > 0.05) {
+                    bottomAnim.play();
+                } else if (self.progress < 0.05) {
+                    bottomAnim.reverse();
+                }
+            }
+        });
+
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorCircle = document.getElementById('cursor-circle');
+        let mouseX = 0, mouseY = 0;
+        let circleX = 0, circleY = 0;
+        
+        // Only activate custom cursor on desktop
+        if (window.innerWidth > 768) {
+            document.body.classList.add('custom-cursor-active');
+            
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+            });
+
+            const renderCursor = () => {
+                circleX += (mouseX - circleX) * 0.15;
+                circleY += (mouseY - circleY) * 0.15;
+                cursorCircle.style.transform = `translate3d(${circleX}px, ${circleY}px, 0)`;
+                requestAnimationFrame(renderCursor);
+            };
+            requestAnimationFrame(renderCursor);
+
+            // Re-bind hover logic function (can be called after dynamic DOM changes)
+            const bindCursorHovers = () => {
+                const interactables = document.querySelectorAll('a, button, .clickable, input, textarea');
+                interactables.forEach(el => {
+                    // Prevent multiple bindings
+                    if (!el.dataset.cursorBound) {
+                        el.dataset.cursorBound = 'true';
+                        el.addEventListener('mouseenter', () => cursorCircle.classList.add('cursor-hover'));
+                        el.addEventListener('mouseleave', () => cursorCircle.classList.remove('cursor-hover'));
+                    }
+                });
+            };
+            // Initial bind
+            bindCursorHovers();
+            // Bind again after a delay in case elements take time to render
+            setTimeout(bindCursorHovers, 1000);
+        }
+
+        // Force page to scroll to top on reload so GSAP doesn't prematurely trigger
+        if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
 
@@ -138,13 +322,10 @@
                 // Wait for the transition to finish before removing from DOM flow
                 setTimeout(() => {
                     loaderWrapper.style.display = 'none';
-                    // Auto-scroll on desktop screens only
-                    if (window.innerWidth > 768) {
-                        window.scrollTo(0, 75); 
-                    }
+                    window.scrollTo(0, 0); // Guarantee start at absolute top
                 }, 500); // 0.5s matches the CSS transition duration
-            } else if (window.innerWidth > 768) {
-                window.scrollTo(0, 75);
+            } else {
+                window.scrollTo(0, 0);
             }
         });
 
@@ -178,6 +359,23 @@
             
             // Define project assets based on actual directory contents
             const projects = {
+                'real-estate': [
+                    'Real estate/LOGO DESIGNING - 1.jpg',
+                    'Real estate/LOGO DESIGNING - 2.jpg',
+                    'Real estate/LOGO DESIGNING - 3.jpg',
+                    'Real estate/LOGO DESIGNING - 4.jpg',
+                    'Real estate/LOGO DESIGNING - 5.jpg',
+                    'Real estate/LOGO DESIGNING - 6.jpg',
+                    'Real estate/LOGO DESIGNING - 7.jpg',
+                    'Real estate/LOGO DESIGNING - 8.jpg',
+                    'Real estate/LOGO DESIGNING - 9.jpg',
+                    'Real estate/LOGO DESIGNING - 10.jpg',
+                    'Real estate/LOGO DESIGNING - 11.jpg',
+                    'Real estate/LOGO DESIGNING - 12.jpg',
+                    'Real estate/LOGO DESIGNING - 13.jpg',
+                    'Real estate/LOGO DESIGNING - 14.jpg',
+                    'Real estate/LOGO DESIGNING - 15.jpg'
+                ],
                 'wellness-brand': [
                     'Wellness brand/1.jpg',
                     'Wellness brand/2.jpg',
@@ -194,6 +392,15 @@
                     'Cafe branding/6.jpg',
                     'Cafe branding/7.jpg',
                     'Cafe branding/8.jpg'
+                ],
+                'brand-revamp': [
+                    'Brand revamp/The Rebrand - 1.jpg',
+                    'Brand revamp/The Rebrand - 2.jpg',
+                    'Brand revamp/The Rebrand - 3.jpg',
+                    'Brand revamp/The Rebrand - 4.jpg',
+                    'Brand revamp/The Rebrand - 5.jpg',
+                    'Brand revamp/The Rebrand - 6.jpg',
+                    'Brand revamp/The Rebrand - 7.jpg'
                 ]
             };
 
