@@ -622,7 +622,7 @@ body.custom-cursor-active .clickable * {
     .projects-hint {
         font-size: 0.6rem !important;
         padding: 4px 12px !important;
-        bottom: 6px !important;
+        bottom: 15px !important; /* Bumped up to avoid sitting on the seam */
     }
 
     /* Scale the grid proportionally so it fits inside the aspect ratio */
@@ -640,26 +640,29 @@ body.custom-cursor-active .clickable * {
         object-fit: contain;
     }
 
-    /* Bottom Right CTAs - Scale down for phone so they don't dominate the small 16:9 video */
+    /* Move CTAs to a footer row on mobile to prevent overlapping the image/girl */
     .bottom-right-ctas {
-        position: absolute;
-        bottom: 45px; /* Sit cleanly above the copyright strip */
-        right: 15px;
+        position: relative !important;
+        bottom: auto !important;
+        right: auto !important;
         display: flex;
-        flex-direction: column;
-        gap: 10px; /* Tighter spacing */
-        z-index: 10;
-        align-items: flex-end;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 25px !important; 
+        padding: 15px 0 20px 0 !important;
+        background: #000; /* Blends nicely with the copyright strip below it */
+        width: 100%;
     }
 
     .cta-icon {
-        width: 45px !important;
-        height: 45px !important;
+        width: 50px !important;
+        height: 50px !important;
     }
     
     .cta-icon svg {
-        width: 22px !important;
-        height: 22px !important;
+        width: 24px !important;
+        height: 24px !important;
     }
 
     /* Hide custom cursor on touch devices to prevent ghost dots */
