@@ -144,6 +144,11 @@
                         <img src="6.4.png" alt="04 Brand Revamp">
                     </div>
                 </div>
+                
+                <!-- CTA Hint for Recruiters -->
+                <div class="projects-hint">
+                    Click a project to view the full case study
+                </div>
             </section>
 
             <!-- 7. Final Section -->
@@ -225,47 +230,32 @@
             const topHorizontalContainer = document.getElementById('top-horizontal-container');
             let topAnim = gsap.to(topHorizontalContainer, {
                 x: () => -(topHorizontalContainer.scrollWidth - window.innerWidth) + "px",
-                duration: 1.2,
-                ease: "power4.inOut",
-                paused: true
+                ease: "none" // Native linear scrub
             });
 
             ScrollTrigger.create({
                 trigger: "#top-horizontal-wrapper",
                 pin: true,
                 start: "top top",
-                end: "+=200", // Short pin
-                onUpdate: (self) => {
-                    // Only trigger if user actually scrolled down a bit
-                    if (self.progress > 0.05) {
-                        topAnim.play();
-                    } else if (self.progress < 0.05) {
-                        topAnim.reverse();
-                    }
-                }
+                end: "+=1200", 
+                animation: topAnim,
+                scrub: 1 // Pure manual scroll, no auto-play or snap
             });
 
             // Bottom Horizontal Scroll Sequence for Section 6 and 7
             const horizontalContainer = document.getElementById('horizontal-container');
             let bottomAnim = gsap.to(horizontalContainer, {
                 x: () => -(horizontalContainer.scrollWidth - window.innerWidth) + "px",
-                duration: 1.2,
-                ease: "power4.inOut",
-                paused: true
+                ease: "none" // Native linear scrub
             });
 
             ScrollTrigger.create({
                 trigger: "#horizontal-wrapper",
                 pin: true,
                 start: "top top",
-                end: "+=50", // Extremely small pin spacer
-                onUpdate: (self) => {
-                    if (self.progress > 0.05) {
-                        bottomAnim.play();
-                    } else if (self.progress < 0.05) {
-                        bottomAnim.reverse();
-                    }
-                }
+                end: "+=1200", 
+                animation: bottomAnim,
+                scrub: 1 // Pure manual scroll, no auto-play or snap
             });
         });
 

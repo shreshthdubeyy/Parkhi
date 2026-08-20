@@ -321,9 +321,43 @@ body, html {
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease;
 }
 
+/* Make it obvious that the projects are clickable */
 .project-item:hover img {
-    transform: translateY(-2px) scale(1.015);
-    filter: drop-shadow(0px 15px 35px rgba(0,0,0,0.6));
+    transform: translateY(-2px) scale(1.05);
+    filter: drop-shadow(0px 15px 35px rgba(0,0,0,0.7));
+}
+
+/* Global Hint CTA */
+.projects-hint {
+    position: absolute;
+    bottom: 12px; /* Close to the edge of the page */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #fff; /* Light text */
+    font-size: 0.7rem; /* Little smaller */
+    pointer-events: none;
+    letter-spacing: 0.5px;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 5;
+    
+    /* Specific Hex Pill */
+    background: #D2361B; 
+    padding: 5px 16px; /* Smaller padding */
+    border-radius: 25px; /* Standard pill shape */
+    border: none;
+    
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+    
+    animation: fadeHint 3s infinite ease-in-out;
+}
+
+@keyframes fadeHint {
+    0% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.02); }
+    100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
 }
 
 /* =========================================
@@ -457,20 +491,28 @@ body, html {
 }
 
 .cta-icon {
-    width: 50px;
-    height: 50px;
-    background-color: #df4425; /* Accent red */
+    width: 60px;
+    height: 60px;
+    background-color: #df4425;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .cta-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Make it obvious the CTAs are clickable */
+.cta-link.clickable:hover .cta-icon {
+    transform: scale(1.15);
+    box-shadow: 0 10px 25px rgba(223, 68, 37, 0.6);
+    background-color: #f05030;
 }
 
 /* =========================================
@@ -490,8 +532,15 @@ body, html {
 /* =========================================
    CUSTOM CURSOR
    ========================================= */
-body.custom-cursor-active * {
-    cursor: none !important;
+body.custom-cursor-active {
+    cursor: none;
+}
+/* Keep native pointer for interactables so it's universally obvious they are clickable */
+body.custom-cursor-active a, 
+body.custom-cursor-active button, 
+body.custom-cursor-active .clickable,
+body.custom-cursor-active .clickable * {
+    cursor: pointer !important;
 }
 
 #cursor-dot,
@@ -567,6 +616,13 @@ body.custom-cursor-active * {
     .scroll-video {
         height: auto !important;
         object-fit: contain !important;
+    }
+
+    /* Make hint even smaller on mobile */
+    .projects-hint {
+        font-size: 0.6rem !important;
+        padding: 4px 12px !important;
+        bottom: 6px !important;
     }
 
     /* Scale the grid proportionally so it fits inside the aspect ratio */
