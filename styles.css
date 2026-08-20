@@ -628,28 +628,43 @@ body.custom-cursor-active .clickable * {
     /* Scale the grid proportionally so it fits inside the aspect ratio */
     .projects-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 2%;
-        width: 80%;
-        margin-top: 15%; /* Push down slightly further to ensure clearance of title */
+        gap: 15px !important; /* Tighter gap */
+        width: 90%; /* Use more available width */
+        margin-top: 10%; /* Center it better vertically */
     }
 
     .project-item img {
         width: 100%;
-        max-width: 85%; /* Make buttons smaller */
-        height: auto; /* Lock aspect ratio natively */
+        max-width: 95%; /* Maximize clickable area */
+        height: auto; 
         object-fit: contain;
     }
 
-    /* Bottom Right CTAs */
+    /* Bottom Right CTAs - Scale down for phone so they don't dominate the small 16:9 video */
     .bottom-right-ctas {
         position: absolute;
-        bottom: 40px;
-        right: 4vw;
+        bottom: 45px; /* Sit cleanly above the copyright strip */
+        right: 15px;
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px; /* Tighter spacing */
         z-index: 10;
-        align-items: flex-end; /* Align right to keep the visual weight anchored */
+        align-items: flex-end;
+    }
+
+    .cta-icon {
+        width: 45px !important;
+        height: 45px !important;
+    }
+    
+    .cta-icon svg {
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    /* Hide custom cursor on touch devices to prevent ghost dots */
+    #cursor-dot, #cursor-circle {
+        display: none !important;
     }
 
 
